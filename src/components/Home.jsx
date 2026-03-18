@@ -152,23 +152,12 @@ useEffect(() => {
       </motion.p>
 
       {/* ✨ Heading */}
-      <motion.h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight z-10 text-center break-words">
-        {text.split("").map((char, i) => (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.03 }}
-            className="inline-block text-black dark:text-white"
-          >
-            {char === " " ? "\u00A0" : char}
-          </motion.span>
-        ))}
-        <br />
-        <span className="bg-gradient-to-r from-gray-600 via-gray-700 to-gray-800 dark:from-gray-400 dark:via-gray-500 dark:to-gray-600 bg-clip-text text-transparent">
-          crafting modern web experiences.
-        </span>
-      </motion.h1>
+      <motion.h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-center tracking-tight">
+  Full Stack Developer{" "}
+  <span className="block text-gray-600 dark:text-gray-400">
+    crafting modern web experiences.
+  </span>
+</motion.h1>
 
       {/* 📄 Description */}
       <motion.p

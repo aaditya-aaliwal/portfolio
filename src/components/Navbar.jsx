@@ -21,7 +21,13 @@ const Navbar = () => {
     damping: 20,
   });
 
-  const navLinks = ["Home", "About", "Skills", "Projects", "Contact"];
+  const navLinks = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
 
   // ✅ Apply theme
   useEffect(() => {
@@ -139,33 +145,25 @@ const Navbar = () => {
           {/* 🔥 Nav Links */}
           <div className="hidden lg:flex items-center gap-10 text-gray-700 dark:text-gray-400">
             {navLinks.map((link) => (
-              <button
-                key={link}
-                onClick={() => {
-                  setActive(link);
-                  handleScrollTo(link);
-                }}
-                className="relative group"
-              >
-                <span
-                  className={`capitalize transition ${
-                    active === link
-                      ? "text-black dark:text-white"
-                      : "group-hover:text-black dark:group-hover:text-white"
-                  }`}
-                >
-                  {link}
-                </span>
-
-                <span
-                  className={`absolute left-0 -bottom-1 h-[2px] transition-all duration-300 ${
-                    active === link
-                      ? "w-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"
-                      : "w-0 group-hover:w-full bg-black dark:bg-white"
-                  }`}
-                ></span>
-              </button>
-            ))}
+  <button
+    key={link.id}
+    onClick={() => {
+      setActive(link.id);
+      handleScrollTo(link.id);
+    }}
+    className="relative group"
+  >
+    <span
+      className={`transition ${
+        active === link.id
+          ? "text-black dark:text-white"
+          : "group-hover:text-black dark:group-hover:text-white"
+      }`}
+    >
+      {link.label}
+    </span>
+  </button>
+))}
           </div>
 
           {/* 🔥 Right Side */}
@@ -230,21 +228,21 @@ const Navbar = () => {
         {/* Menu Items */}
         <div className="flex flex-col gap-8 text-2xl font-semibold text-gray-800 dark:text-gray-200">
           {navLinks.map((link, i) => (
-            <motion.button
-              key={link}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.1 }}
-              onClick={() => {
-                setActive(link);
-                handleScrollTo(link);
-                setIsOpen(false);
-              }}
-              className="text-left hover:text-black dark:hover:text-white transition transform hover:translate-x-2 tracking-wide"
-            >
-              {link}
-            </motion.button>
-          ))}
+  <motion.button
+    key={link.id}
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ delay: i * 0.1 }}
+    onClick={() => {
+      setActive(link.id);
+      handleScrollTo(link.id);
+      setIsOpen(false);
+    }}
+    className="text-left hover:text-black dark:hover:text-white transition transform hover:translate-x-2 tracking-wide"
+  >
+    {link.label}
+  </motion.button>
+))}
         </div>
 
         {/* Mobile Bottom */}
