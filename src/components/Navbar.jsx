@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FiMoon, FiSun } from "react-icons/fi";
 import logoDark from "../assets/logo-dark.png";   // for light mode
@@ -21,7 +21,7 @@ const Navbar = () => {
     damping: 20,
   });
 
-  const navLinks = ["home", "about", "skills", "projects", "contact"];
+  const navLinks = ["Home", "About", "Skills", "Projects", "Contact"];
 
   // ✅ Apply theme
   useEffect(() => {
@@ -199,58 +199,74 @@ const Navbar = () => {
       </motion.nav>
 
       {/* 🔥 Mobile Sidebar */}
-      {isOpen && (
-        <>
-          <div
-            className="fixed inset-0 bg-black/70 z-40"
-            onClick={() => setIsOpen(false)}
-          ></div>
+<AnimatePresence>
+  {isOpen && (
+    <>
+      {/* Overlay */}
+      <motion.div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        onClick={() => setIsOpen(false)}
+      />
 
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            className="fixed top-0 right-0 h-full w-[75%] bg-white dark:bg-black z-50 p-6 flex flex-col"
+      {/* Sidebar */}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "100%" }}
+        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+        className="fixed top-0 right-0 h-full w-[75%] bg-white dark:bg-black z-50 p-6 flex flex-col"
+      >
+        {/* Close button */}
+        <div className="flex justify-end mb-8">
+          <button onClick={() => setIsOpen(false)}>
+            <HiX size={28} className="text-black dark:text-white" />
+          </button>
+        </div>
+
+        {/* Menu Items */}
+        <div className="flex flex-col gap-8 text-2xl font-semibold text-gray-800 dark:text-gray-200">
+          {navLinks.map((link, i) => (
+            <motion.button
+              key={link}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.1 }}
+              onClick={() => {
+                setActive(link);
+                handleScrollTo(link);
+                setIsOpen(false);
+              }}
+              className="text-left hover:text-black dark:hover:text-white transition transform hover:translate-x-2 tracking-wide"
+            >
+              {link}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Mobile Bottom */}
+        <div className="mt-auto pt-10 flex justify-between items-center">
+          <button
+            onClick={toggleTheme}
+            className="text-black dark:text-white"
           >
-            <div className="flex justify-end mb-8">
-              <button onClick={() => setIsOpen(false)}>
-                <HiX size={28} className="text-black dark:text-white" />
-              </button>
-            </div>
+            {dark ? <FiSun /> : <FiMoon />}
+          </button>
 
-            <div className="flex flex-col gap-6 text-lg text-gray-700 dark:text-gray-300">
-              {navLinks.map((link) => (
-                <button
-                  key={link}
-                  onClick={() => {
-                    setActive(link);
-                    handleScrollTo(link);
-                    setIsOpen(false);
-                  }}
-                  className="text-left hover:text-black dark:hover:text-white"
-                >
-                  {link}
-                </button>
-              ))}
-            </div>
-
-            {/* Mobile Bottom */}
-            <div className="mt-auto pt-10 flex justify-between">
-
-              <button onClick={toggleTheme} className="text-black dark:text-white">
-                {dark ? <FiSun /> : <FiMoon />}
-              </button>
-
-              <button
-                onClick={() => handleScrollTo("contact")}
-                className="text-black dark:text-white"
-              >
-                Contact →
-              </button>
-
-            </div>
-          </motion.div>
-        </>
-      )}
+          <button
+            onClick={() => handleScrollTo("contact")}
+            className="text-black dark:text-white"
+          >
+            Contact →
+          </button>
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
     </>
   );
 };

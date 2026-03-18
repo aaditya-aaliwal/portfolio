@@ -152,7 +152,7 @@ useEffect(() => {
       </motion.p>
 
       {/* ✨ Heading */}
-      <motion.h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight max-w-3xl z-10">
+      <motion.h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight z-10 text-center break-words">
         {text.split("").map((char, i) => (
           <motion.span
             key={i}
