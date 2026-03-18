@@ -1,0 +1,106 @@
+/* 🔥 Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* 🔥 Tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🔥 Global Styles */
+:root {
+  font-family: "Inter", sans-serif;
+  background: #000000;
+}
+
+body {
+  @apply bg-black text-white;
+}
+
+/* 🔥 Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 🔥 Animation */
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================= */
+/* 🔥 PREMIUM CURSOR */
+/* ========================= */
+
+/* Hide default cursor */
+* {
+  cursor: none;
+}
+
+/* Main cursor */
+.cursor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+
+  /* Center alignment */
+  transform: translate(-50%, -50%);
+
+  /* Gradient border */
+  border: 2px solid transparent;
+  background: 
+    linear-gradient(black, black) padding-box,
+    linear-gradient(45deg, #a855f7, #ec4899, #3b82f6) border-box;
+
+  /* Glow */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+
+  /* Smooth */
+  transition: 
+    transform 0.15s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.cursor-hover {
+  transform: translate(-50%, -50%) scale(2);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+}
+
+/* ========================= */
+/* 📱 MOBILE FIX */
+/* ========================= */
+
+@media (max-width: 768px) {
+  * {
+    cursor: auto;
+  }
+
+  .cursor {
+    display: none;
+  }
+}
+
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% }
+  100% { background-position: 200% }
+}
+
+.animate-gradient {
+  background-size: 200%;
+  animation: gradientMove 5s linear infinite;
+}
