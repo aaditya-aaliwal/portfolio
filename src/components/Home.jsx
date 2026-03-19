@@ -49,8 +49,8 @@ useEffect(() => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    const rotateX = (y / rect.height - 0.5) * 8;
-    const rotateY = (x / rect.width - 0.5) * -8;
+    const rotateX = (y / rect.height - 0.5) * 5;
+    const rotateY = (x / rect.width - 0.5) * -5;
 
     imgRef.current.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
   };
@@ -64,26 +64,26 @@ useEffect(() => {
   return (
     <motion.section
       id="home"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+       initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative min-h-screen flex flex-col items-center justify-center px-6 lg:px-12 py-24 text-center overflow-hidden bg-white dark:bg-black scroll-mt-24"
     >
 
       {/* 🔥 Cursor Glow */}
       <div
-        className="pointer-events-none fixed w-[600px] h-[600px] rounded-full blur-[160px] opacity-20 z-0"
+        className="pointer-events-none fixed w-[500px] h-[500px] rounded-full blur-[140px] opacity-20 z-0 transition-transform duration-200"
         style={{
           background:
             "radial-gradient(circle, rgba(139,92,246,0.35), transparent 60%)",
-          left: position.x - 300,
-          top: position.y - 300,
+          left: position.x - 250,
+          top: position.y - 250,
         }}
       />
 
       {/* 🌠 Stars (only in dark mode) */}
       <div className="absolute inset-0 z-0 overflow-hidden hidden dark:block">
-        {[...Array(35)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
             className="absolute w-[1.5px] h-[1.5px] bg-white rounded-full opacity-20"
@@ -106,9 +106,9 @@ useEffect(() => {
 
       {/* 👤 Profile */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
+        initial={{ opacity: 0, y: 30 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6, ease: "easeOut" }}
         className="mb-10 relative flex items-center justify-center z-10 perspective-[1000px]"
       >
         <div className="absolute w-56 h-56 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 blur-[100px] opacity-20 rounded-full"></div>
@@ -129,9 +129,9 @@ useEffect(() => {
       src={darkMode ? profileBW : profileColor}
       alt="profile"
       className="w-24 h-24 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full object-cover 
-      border-2 border-white/20 dark:border-white/10
-      shadow-[0_20px_80px_rgba(0,0,0,0.8)] 
-      group-hover:scale-105 transition duration-500"
+border-2 border-white/20 dark:border-white/10
+shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+group-hover:scale-105 transition duration-500 ease-out"
     />
   </div>
 </div>
@@ -152,7 +152,10 @@ useEffect(() => {
       </motion.p>
 
       {/* ✨ Heading */}
-      <motion.h1 className="text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-center tracking-tight">
+      <motion.h1 initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+  className="text-3xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-center tracking-tight">
   Full Stack Developer{" "}
   <span className="block text-gray-600 dark:text-gray-400">
     crafting modern web experiences.
@@ -162,8 +165,8 @@ useEffect(() => {
       {/* 📄 Description */}
       <motion.p
         initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        animate={{ opacity: 1, y: 0 }}
+transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
         className="mt-5 text-gray-600 dark:text-gray-400 max-w-md sm:max-w-xl text-sm sm:text-base leading-relaxed z-10"
       >
         I build scalable, high-performance applications using React, Node.js,
@@ -171,7 +174,10 @@ useEffect(() => {
       </motion.p>
 
       {/* 🔥 Buttons */}
-      <motion.div className="flex flex-col gap-4 mt-8 w-full max-w-xs mx-auto sm:flex-row sm:max-w-none sm:justify-center z-10">
+      <motion.div initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.5, duration: 0.6, ease: "easeOut" }}
+  className="flex flex-col gap-4 mt-8 w-full max-w-xs mx-auto sm:flex-row sm:max-w-none sm:justify-center z-10">
 
         {/* Contact */}
         <MagneticButton>

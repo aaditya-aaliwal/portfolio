@@ -54,7 +54,19 @@ const Contact = () => {
       </motion.h2>
 
       {/* Container */}
-      <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.2, // ✅ smooth delay
+            },
+          },
+        }}
+        className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
 
         {/* 🔥 FORM */}
         <motion.form
@@ -77,12 +89,14 @@ const Contact = () => {
             placeholder="Your Name"
             required
             className="px-4 py-3 bg-transparent 
-            border border-gray-300 dark:border-white/10 
-            text-black dark:text-white 
-            rounded-lg 
-            focus:border-purple-400 
-            focus:ring-1 focus:ring-purple-400/30 
-            outline-none transition"
+border border-gray-300 dark:border-white/10 
+text-black dark:text-white 
+rounded-lg 
+outline-none transition-all duration-300
+focus:border-purple-400 
+focus:ring-2 focus:ring-purple-400/30 
+focus:scale-[1.02] 
+hover:border-purple-300"
           />
 
           <input
@@ -91,12 +105,14 @@ const Contact = () => {
             placeholder="Your Email"
             required
             className="px-4 py-3 bg-transparent 
-            border border-gray-300 dark:border-white/10 
-            text-black dark:text-white 
-            rounded-lg 
-            focus:border-purple-400 
-            focus:ring-1 focus:ring-purple-400/30 
-            outline-none transition"
+border border-gray-300 dark:border-white/10 
+text-black dark:text-white 
+rounded-lg 
+outline-none transition-all duration-300
+focus:border-purple-400 
+focus:ring-2 focus:ring-purple-400/30 
+focus:scale-[1.02] 
+hover:border-purple-300"
           />
 
           <input
@@ -104,12 +120,14 @@ const Contact = () => {
             name="subject"
             placeholder="Subject"
             className="px-4 py-3 bg-transparent 
-            border border-gray-300 dark:border-white/10 
-            text-black dark:text-white 
-            rounded-lg 
-            focus:border-purple-400 
-            focus:ring-1 focus:ring-purple-400/30 
-            outline-none transition"
+border border-gray-300 dark:border-white/10 
+text-black dark:text-white 
+rounded-lg 
+outline-none transition-all duration-300
+focus:border-purple-400 
+focus:ring-2 focus:ring-purple-400/30 
+focus:scale-[1.02] 
+hover:border-purple-300"
           />
 
           <textarea
@@ -118,29 +136,41 @@ const Contact = () => {
             placeholder="Your Message"
             required
             className="px-4 py-3 bg-transparent 
-            border border-gray-300 dark:border-white/10 
-            text-black dark:text-white 
-            rounded-lg 
-            focus:border-purple-400 
-            focus:ring-1 focus:ring-purple-400/30 
-            outline-none transition resize-none"
+border border-gray-300 dark:border-white/10 
+text-black dark:text-white 
+rounded-lg 
+outline-none transition-all duration-300
+focus:border-purple-400 
+focus:ring-2 focus:ring-purple-400/30 
+focus:scale-[1.02] 
+hover:border-purple-300"
           ></textarea>
 
           {/* 🔥 Button */}
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            disabled={loading}
-            type="submit"
-            className="relative mt-2 px-6 py-3 rounded-full font-medium overflow-hidden group 
-            bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white"
-          >
-            <span className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-white transition"></span>
+  whileHover={{ scale: 1.06 }}
+  whileTap={{ scale: 0.95 }}
+  disabled={loading}
+  type="submit"
+  className="relative mt-2 px-6 py-3 rounded-full font-medium overflow-hidden group 
+  bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white 
+  shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
+>
+  {/* Glow Pulse */}
+  <span className="absolute inset-0 opacity-0 group-hover:opacity-30 bg-white blur-xl transition duration-500"></span>
 
-            <span className="relative z-10">
-              {loading ? "Sending..." : "Send Message"}
-            </span>
-          </motion.button>
+  {/* Button Text */}
+  <span className="relative z-10 flex items-center justify-center gap-2">
+    {loading ? (
+      <>
+        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+        Sending...
+      </>
+    ) : (
+      "Send Message"
+    )}
+  </span>
+</motion.button>
 
           {/* Messages */}
           {success === true && (
@@ -172,32 +202,40 @@ const Contact = () => {
           {/* Info Cards */}
           <div className="space-y-4">
 
-            <div className="p-5 rounded-xl 
-            bg-gray-100 dark:bg-white/5 
-            border border-gray-300 dark:border-white/10 
-            backdrop-blur-lg 
-            hover:border-purple-400/40 transition">
-              <p className="text-black dark:text-white font-semibold mb-1">
-                Email
-              </p>
-              <p>aadityaaaliwal@gmail.com</p>
-            </div>
+         <motion.div
+  whileHover={{ y: -6, scale: 1.02 }}
+  transition={{ type: "spring", stiffness: 120 }}
+  className="p-5 rounded-xl 
+  bg-gray-100 dark:bg-white/5 
+  border border-gray-300 dark:border-white/10 
+  backdrop-blur-lg 
+  hover:border-purple-400/40 transition"
+>
+  <p className="text-black dark:text-white font-semibold mb-1">
+    Email
+  </p>
+  <p>aadityaaaliwal@gmail.com</p>
+</motion.div>
 
-            <div className="p-5 rounded-xl 
-            bg-gray-100 dark:bg-white/5 
-            border border-gray-300 dark:border-white/10 
-            backdrop-blur-lg 
-            hover:border-purple-400/40 transition">
-              <p className="text-black dark:text-white font-semibold mb-1">
-                Phone
-              </p>
-              <p>+91 99939 73064</p>
-            </div>
+            <motion.div
+  whileHover={{ y: -6, scale: 1.02 }}
+  transition={{ type: "spring", stiffness: 120 }}
+  className="p-5 rounded-xl 
+  bg-gray-100 dark:bg-white/5 
+  border border-gray-300 dark:border-white/10 
+  backdrop-blur-lg 
+  hover:border-purple-400/40 transition"
+>
+  <p className="text-black dark:text-white font-semibold mb-1">
+    Phone
+  </p>
+  <p>+91 99939 73064</p>
+</motion.div>
 
           </div>
-
-        </motion.div>
-      </div>
+          
+</motion.div> 
+      </motion.div>
     </section>
   );
 };

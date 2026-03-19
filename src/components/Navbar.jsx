@@ -17,9 +17,10 @@ const Navbar = () => {
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 20,
-  });
+  stiffness: 60,
+  damping: 20,
+  mass: 0.5,
+});
 
   const navLinks = [
   { id: "home", label: "Home" },
@@ -47,8 +48,8 @@ const Navbar = () => {
 
       let current = "home";
 
-      navLinks.forEach((id) => {
-        const section = document.getElementById(id);
+      navLinks.forEach((link) => {
+        const section = document.getElementById(link.id);
         if (section) {
           const rect = section.getBoundingClientRect();
           if (rect.top <= 120 && rect.bottom >= 120) {
@@ -91,9 +92,10 @@ const Navbar = () => {
 
       {/* 🔥 Navbar */}
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className={`fixed top-0 left-0 w-full z-40 px-6 lg:px-12 py-4 transition-all duration-500 ${
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className={`fixed top-0 left-0 w-full z-40 px-6 lg:px-12 py-4 transition-all duration-300 ease-out ${
           scrolled
             ? "backdrop-blur-xl bg-white/70 dark:bg-black/30 border-b border-gray-300 dark:border-white/10"
             : "bg-transparent"
@@ -120,26 +122,17 @@ const Navbar = () => {
 
   {/* Logo */}
   <motion.img
-    src={dark ? logoLight : logoDark}
-    alt="logo"
-    className="w-28 h-auto relative z-10 object-contain"  // 🔥 BIGGER SIZE
-    variants={{
-      rest: { scale: 1 },
-      hover: { scale: 1.08 },
-    }}
-    transition={{ type: "spring", stiffness: 200, damping: 12 }}
-    onMouseMove={(e) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      e.currentTarget.style.transform = `translate(${x * 0.1}px, ${
-        y * 0.1
-      }px) scale(1.08)`;
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.transform = "translate(0px, 0px) scale(1)";
-    }}
-  />
+  src={dark ? logoLight : logoDark}
+  alt="logo"
+  className="w-28 h-auto relative z-10 object-contain"
+  variants={{
+    rest: { scale: 1 },
+    hover: { scale: 1.08 },
+  }}
+  initial="rest"
+  whileHover="hover"
+  transition={{ type: "spring", stiffness: 120, damping: 10 }}
+/>
 </motion.div>
 
           {/* 🔥 Nav Links */}
@@ -154,12 +147,15 @@ const Navbar = () => {
     className="relative group"
   >
     <span
-      className={`transition ${
-        active === link.id
-          ? "text-black dark:text-white"
-          : "group-hover:text-black dark:group-hover:text-white"
-      }`}
+      className={`transition duration-300 ${
+    active === link.id
+      ? "text-black dark:text-white"
+      : "group-hover:text-black dark:group-hover:text-white"
+  }`}
     >
+      <div className={`absolute left-0 -bottom-1 h-[2px] bg-purple-500 transition-all duration-300 ${
+  active === link.id ? "w-full" : "w-0 group-hover:w-full"
+}`}></div>
       {link.label}
     </span>
   </button>
@@ -172,7 +168,7 @@ const Navbar = () => {
             {/* 🌙 Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-gray-300 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 transition"
+              className="p-2 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 hover:scale-110 transition duration-300"
             >
               {dark ? <FiSun className="text-yellow-400" /> : <FiMoon />}
             </button>
@@ -180,7 +176,7 @@ const Navbar = () => {
             {/* 🔥 Contact Button */}
             <button
               onClick={() => handleScrollTo("contact")}
-              className="px-5 py-2 rounded-full border border-gray-300 dark:border-white/20 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-black dark:hover:text-white transition"
+              className="px-5 py-2 rounded-full border border-gray-300 dark:border-white/20 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-black dark:hover:text-white transition duration-300 hover:scale-105 active:scale-95"
             >
               Contact →
             </button>
@@ -188,11 +184,27 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu */}
-          <div className="lg:hidden">
-            <button onClick={() => setIsOpen(true)}>
-              <HiMenu size={28} className="text-black dark:text-white" />
-            </button>
-          </div>
+          {/* Mobile Right Controls */}
+<div className="lg:hidden flex items-center gap-3">
+
+  {/* 🌙 Theme Toggle OUTSIDE */}
+  <button
+    onClick={toggleTheme}
+    className="p-2 rounded-full bg-white/10 backdrop-blur-md hover:scale-110 transition"
+  >
+    {dark ? (
+      <FiSun className="text-yellow-400" size={20} />
+    ) : (
+      <FiMoon size={20} />
+    )}
+  </button>
+
+  {/* 🍔 Menu Button */}
+  <button onClick={() => setIsOpen(true)}>
+    <HiMenu size={28} className="text-black dark:text-white" />
+  </button>
+
+</div>
         </div>
       </motion.nav>
 
@@ -206,7 +218,7 @@ const Navbar = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.3, ease: "easeOut"}}
         onClick={() => setIsOpen(false)}
       />
 
@@ -215,7 +227,7 @@ const Navbar = () => {
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
         exit={{ x: "100%" }}
-        transition={{ type: "spring", stiffness: 120, damping: 20 }}
+        transition={{ type: "spring", stiffness: 80, damping: 18 }}
         className="fixed top-0 right-0 h-full w-[75%] bg-white dark:bg-black z-50 p-6 flex flex-col"
       >
         {/* Close button */}
@@ -247,13 +259,6 @@ const Navbar = () => {
 
         {/* Mobile Bottom */}
         <div className="mt-auto pt-10 flex justify-between items-center">
-          <button
-            onClick={toggleTheme}
-            className="text-black dark:text-white"
-          >
-            {dark ? <FiSun /> : <FiMoon />}
-          </button>
-
           <button
             onClick={() => handleScrollTo("contact")}
             className="text-black dark:text-white"

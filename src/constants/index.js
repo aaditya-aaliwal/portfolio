@@ -44,14 +44,14 @@ export const PROJECTS = [
     image: project1,
     description:
       "A fully functional e-commerce website with features like product listing, shopping cart, and user authentication.",
-    technologies: ["HTML", "CSS", "React", "Node.js", "mySQL"],
+    technologies: ["HTML", "CSS", "React","Express", "Node.js", "MongoDB"]
   },
   {
     title: "Task Management App",
     image: project2,
     description:
       "An application for managing tasks and projects, with features such as task creation, assignment, and progress tracking.",
-    technologies: ["HTML", "CSS", "React", "Firebase"],
+    technologies: ["HTML", "CSS", "React-Native", "Firebase"],
   },
   {
     title: "Portfolio Website",
@@ -65,7 +65,7 @@ export const PROJECTS = [
     image: project4,
     description:
       "A full-stack grocery app enabling users to browse products, manage carts, and place orders seamlessly with a smooth and responsive experience across web and mobile platforms.",
-    technologies: ["HTML", "CSS", "React-Native", "React", "mySQL", "Express" , "Node"],
+    technologies: ["HTML", "CSS", "React","React-Native", "Express", "Node.js", "mySQL"]
   },
 ];
 

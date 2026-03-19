@@ -29,7 +29,12 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="relative px-6 pt-16 pb-8 mt-10
+    <motion.footer
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+  viewport={{ once: true }}
+  className="relative px-6 pt-16 pb-8 mt-10
     border-t border-gray-300 dark:border-white/10 
     bg-white dark:bg-black"
     >
@@ -49,28 +54,48 @@ const Footer = () => {
         </h2>
 
         {/* 🔥 Email */}
-        <p className="mt-3 text-gray-600 dark:text-gray-400">
-          aadityaaaliwal@gmail.com
-        </p>
+        <a
+  href="mailto:aadityaaaliwal@gmail.com"
+  className="mt-3 block text-gray-600 dark:text-gray-400 hover:text-purple-500 transition"
+>
+  aadityaaaliwal@gmail.com
+</a>
 
         {/* 🔥 Social Icons */}
-        <div className="flex justify-center gap-6 mt-6 text-gray-600 dark:text-gray-400">
+        <motion.div
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true }}
+  variants={{
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }}
+  className="flex justify-center gap-6 mt-6 text-gray-600 dark:text-gray-400">
           {socialLinks.map((item, i) => {
             const Icon = item.icon;
             return (
               <motion.a
-                key={i}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.3, y: -3 }}
-                className="hover:text-black dark:hover:text-white transition"
-              >
-                <Icon size={20} />
-              </motion.a>
+  key={i}
+  href={item.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  variants={{
+    hidden: { opacity: 0, y: 10 },
+    show: { opacity: 1, y: 0 },
+  }}
+  whileHover={{ scale: 1.25, y: -4, rotate: 5 }}
+  transition={{ type: "spring", stiffness: 200 }}
+  className="hover:text-black dark:hover:text-white transition"
+>
+  <Icon size={20} />   {/* ✅ THIS WAS MISSING */}
+</motion.a>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* 🔥 Divider */}
         <div className="w-full h-[1px] bg-gray-300 dark:bg-white/10 my-8"></div>
@@ -112,7 +137,7 @@ const Footer = () => {
         </div>
 
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

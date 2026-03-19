@@ -22,7 +22,7 @@ const item = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6 },
+    transition: { duration: 0.6, ease: "easeOut"},
   },
 };
 
@@ -47,8 +47,8 @@ useEffect(() => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const smoothX = useSpring(mouseX, { stiffness: 40, damping: 25 });
-  const smoothY = useSpring(mouseY, { stiffness: 40, damping: 25 });
+  const smoothX = useSpring(mouseX, { stiffness: 30, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 30, damping: 20 });
 
   const handleMouseMove = (e) => {
     mouseX.set(e.clientX - window.innerWidth / 2);
@@ -56,10 +56,14 @@ useEffect(() => {
   };
 
   return (
-    <section
-      id="about"
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center px-6 lg:px-12 py-24 overflow-hidden scroll-mt-24 bg-white dark:bg-black"
+    <motion.section
+  id="about"
+  onMouseMove={handleMouseMove}
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6, ease: "easeOut" }}
+  viewport={{ once: true }}
+  className="relative min-h-screen flex items-center px-6 lg:px-12 py-24 overflow-hidden scroll-mt-24 bg-white dark:bg-black"
     >
 
       {/* BG Grid */}
@@ -71,7 +75,7 @@ useEffect(() => {
 
       {/* Glow */}
       <motion.div
-        className="absolute w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[120px] -z-10"
+        className="absolute w-[400px] h-[400px] bg-purple-500/20 rounded-full blur-[100px] -z-10"
         style={{ x: smoothX, y: smoothY }}
       />
 
@@ -128,8 +132,9 @@ border border-white/20
 shadow-lg 
 hover:shadow-purple-500/20 
 hover:-translate-y-2 
-hover:scale-[1.02]
-transition-all duration-300">
+hover:scale-[1.03]
+active:scale-[0.98]
+transition-all duration-300 ease-out">
               <FaGraduationCap className="text-xl mb-3 text-black dark:text-white" />
               <p className="text-black dark:text-white font-semibold">Education</p>
               <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
@@ -162,7 +167,7 @@ border border-white/20
 shadow-lg 
 hover:shadow-purple-500/20 
 hover:-translate-y-2 
-hover:scale-[1.02]
+hover:scale-[1.03]
 transition-all duration-300">
               <TbTools className="text-xl mb-3 text-black dark:text-white" />
               <p className="text-black dark:text-white font-semibold">Tools I Use</p>
@@ -178,19 +183,19 @@ transition-all duration-300">
         {/* RIGHT IMAGE */}
         <motion.div
         className="order-1 lg:order-2"
-          initial={{ opacity: 0, scale: 0.9, x: 80 }}
-  whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          initial={{ opacity: 0, y: 40 }}
+whileInView={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6, ease: "easeOut" }}
   viewport={{ once: true }}
-  transition={{ duration: 0.8 }}
         >
           <motion.div
             whileHover={{
-              rotateX: 8,
-              rotateY: -8,
-              scale: 1.05,
+              rotateX: 5,
+  rotateY: -5,
+  scale: 1.03,
             }}
-            animate={{ y: [0, -15, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             className="relative"
           >
 
@@ -211,10 +216,11 @@ transition-all duration-300">
   {/* Image */}
   <img
     src={darkMode ? profileBW : profileColor}
-    alt="profile"
-    className="relative w-full max-w-sm rounded-2xl object-cover 
-    shadow-[0_30px_100px_rgba(0,0,0,0.9)]
-    group-hover:scale-105 transition duration-500"
+  alt="profile"
+  className="relative w-full max-w-sm rounded-2xl object-cover 
+  shadow-[0_20px_60px_rgba(0,0,0,0.6)]
+  group-hover:scale-105 hover:scale-[1.03] active:scale-[0.98]
+  transition duration-500 ease-out"
   />
 </div>
 </div>
@@ -222,7 +228,7 @@ transition-all duration-300">
         </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
