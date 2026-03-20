@@ -33,7 +33,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative px-6 lg:px-12 py-24 scroll-mt-24 bg-white dark:bg-black"
+      className="relative px-4 sm:px-6 lg:px-12 py-24 scroll-mt-24 bg-white dark:bg-black"
     >
 
       {/* 🔥 Background Glow */}
@@ -66,7 +66,7 @@ const Contact = () => {
             },
           },
         }}
-        className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center">
+        className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-center justify-center">
 
         {/* 🔥 FORM */}
         <motion.form
@@ -75,7 +75,7 @@ const Contact = () => {
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="p-8 rounded-2xl 
+          className="w-full max-w-md mx-auto p-8 rounded-2xl 
           bg-gray-100 dark:bg-white/5 
           backdrop-blur-xl 
           border border-gray-300 dark:border-white/10 
@@ -191,7 +191,7 @@ hover:border-purple-300"
           initial={{ opacity: 0, x: 60 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="space-y-8 text-gray-600 dark:text-gray-400"
+          className="space-y-8 text-gray-600 dark:text-gray-400 text-center lg:text-left"
         >
 
           <p className="text-lg leading-relaxed max-w-xl">
@@ -200,12 +200,12 @@ hover:border-purple-300"
           </p>
 
           {/* Info Cards */}
-          <div className="space-y-4">
+          <div className="space-y-4 flex flex-col items-center lg:items-start">
 
          <motion.div
   whileHover={{ y: -6, scale: 1.02 }}
   transition={{ type: "spring", stiffness: 120 }}
-  className="p-5 rounded-xl 
+  className="w-full max-w-sm p-5 rounded-xl 
   bg-gray-100 dark:bg-white/5 
   border border-gray-300 dark:border-white/10 
   backdrop-blur-lg 
@@ -220,7 +220,7 @@ hover:border-purple-300"
             <motion.div
   whileHover={{ y: -6, scale: 1.02 }}
   transition={{ type: "spring", stiffness: 120 }}
-  className="p-5 rounded-xl 
+  className="w-full max-w-sm p-5 rounded-xl 
   bg-gray-100 dark:bg-white/5 
   border border-gray-300 dark:border-white/10 
   backdrop-blur-lg 
